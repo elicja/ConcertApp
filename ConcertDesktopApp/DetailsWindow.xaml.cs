@@ -20,15 +20,15 @@ namespace ConcertDesktopApp
     /// </summary>
     public partial class DetailsWindow : Window
     {
-        private readonly MainWindow _mainWindow;
+        private List<ConcertData> _concerts;
         public DetailsWindow()
         {
             InitializeComponent();
         }
 
-        public DetailsWindow(MainWindow mainWindow):this()
-        {            
-            this._mainWindow = mainWindow;
+        public DetailsWindow(ref List<ConcertData> concerts) : this()
+        {
+            _concerts = concerts;
         }
 
         public void LoadData(ConcertData concertData, bool disableEdtiting = true)
@@ -64,21 +64,21 @@ namespace ConcertDesktopApp
             if(Guid.Parse(guid.Text) == Guid.Empty)
             {
                 concert.Id = Guid.NewGuid();
-                _mainWindow.concerts.Add(concert);
+                _concerts.Add(concert);
             }
             else
             {
                 Guid concertId = Guid.Parse(guid.Text);
-                ConcertData concertToDelete = _mainWindow.concerts.FirstOrDefault(x => x.Id == concertId);
+                ConcertData concertToDelete = _concerts.FirstOrDefault(x => x.Id == concertId);
                 if(concertToDelete != null)
                 {
                     concert.Id = concertId;
-                    _mainWindow.concerts.Remove(concertToDelete);
-                    _mainWindow.concerts.Add(concert);
+                    _concerts.Remove(concertToDelete);
+                    _concerts.Add(concert);
                 }
             }           
-             
-            _mainWindow.MainInfo.Items.Refresh();
+            
+
             this.Close();
         }
 

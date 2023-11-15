@@ -35,18 +35,20 @@ namespace ConcertDesktopApp
 
         private void EditDetails(object sender, RoutedEventArgs e)
         {
-            DetailsWindow details = new DetailsWindow(this);
+            DetailsWindow details = new DetailsWindow(ref concerts);
             ConcertData concertData = ((FrameworkElement)sender).DataContext as ConcertData;
             details.LoadData(concertData, false);
-            details.Show();
+            details.ShowDialog();
+            MainInfo.Items.Refresh();
         }
 
         private void AddDetails(object sender, RoutedEventArgs e)
         {
-            DetailsWindow details = new DetailsWindow(this);
+            DetailsWindow details = new DetailsWindow(ref concerts);
             ConcertData concertData = new ConcertData();      // pusty obiekt    
             details.LoadData(concertData, false);
-            details.Show();
+            details.ShowDialog();
+            MainInfo.Items.Refresh();
         }
 
         public void DeleteDetails(object sender, RoutedEventArgs e)
